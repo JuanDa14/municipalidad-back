@@ -3,7 +3,7 @@ import { Service } from '../models';
 
 export const getServices = async (req: Request, res: Response) => {
 	try {
-		const services = await Service.find().populate('type', 'name').lean();
+		const services = await Service.find().populate('type', 'name description').lean();
 		return res.json(services);
 	} catch (error) {
 		return res.json({ message: 'Error interno del servidor' });
@@ -12,7 +12,9 @@ export const getServices = async (req: Request, res: Response) => {
 
 export const getService = async (req: Request, res: Response) => {
 	try {
-		const service = await Service.findById(req.params.id).populate('type', 'name').lean();
+		const service = await Service.findById(req.params.id)
+			.populate('type', 'name description')
+			.lean();
 		return res.json(service);
 	} catch (error) {
 		return res.json({ message: 'Error interno del servidor' });
@@ -31,7 +33,7 @@ export const createService = async (req: Request, res: Response) => {
 export const updateService = async (req: Request, res: Response) => {
 	try {
 		const service = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true })
-			.populate('type', 'name')
+			.populate('type', 'name description')
 			.lean();
 		return res.json(service);
 	} catch (error) {

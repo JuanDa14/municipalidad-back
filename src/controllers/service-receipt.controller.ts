@@ -1,5 +1,5 @@
 import { Request, Response, request } from 'express';
-import { ServiceReceipt, ServiceType } from '../models';
+import { Client, ServiceReceipt, ServiceType } from '../models';
 import { addMonths } from 'date-fns';
 import { Service } from '../models'; // Asegúrate de importar el modelo de Service
 
@@ -15,6 +15,7 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 					select: 'name description',
 				},
 			})
+			.sort({ createdAt: -1 })
 			.lean();
 		return res.json(monthlyReceipts);
 	} catch (error) {
@@ -24,15 +25,25 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 
 export const createReceipt = async (req: Request, res: Response) => {
 	try {
-		const { client, service, months, amount, fromDate } = req.body;
+		const { service, months, amount, fromDate, dni_ruc } = req.body;
+
+		const clientFound = await Client.findOne({ dni_ruc }).select('+_id').lean();
+
+		if (!clientFound) {
+			return res.status(400).json({ message: 'cliente no encontrado' });
+		}
+
 		const fecha = new Date(fromDate);
+
 		const toDate = addMonths(
 			fecha,
 			Number(months) === 0 ? Number(months) : Number(months) - 1
 		).toLocaleDateString('es-ES');
+
 		const price = String(Number(months) * Number(amount));
+
 		const receipt = await ServiceReceipt.create({
-			client: client,
+			client: clientFound._id,
 			service: service,
 			months: months,
 			amount: price,
@@ -41,6 +52,6 @@ export const createReceipt = async (req: Request, res: Response) => {
 		});
 		return res.status(200).json(receipt);
 	} catch (error) {
-		return res.status(400).json({ msg: 'error al crear el recibo' });
+		return res.status(400).json({ message: 'error al crear el recibo' });
 	}
 };

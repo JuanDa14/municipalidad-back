@@ -13,7 +13,7 @@ exports.deleteService = exports.updateService = exports.createService = exports.
 const models_1 = require("../models");
 const getServices = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const services = yield models_1.Service.find().populate('type', 'name').lean();
+        const services = yield models_1.Service.find().populate('type', 'name description').lean();
         return res.json(services);
     }
     catch (error) {
@@ -23,7 +23,9 @@ const getServices = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.getServices = getServices;
 const getService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const service = yield models_1.Service.findById(req.params.id).populate('type', 'name').lean();
+        const service = yield models_1.Service.findById(req.params.id)
+            .populate('type', 'name description')
+            .lean();
         return res.json(service);
     }
     catch (error) {
@@ -44,7 +46,7 @@ exports.createService = createService;
 const updateService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const service = yield models_1.Service.findByIdAndUpdate(req.params.id, req.body, { new: true })
-            .populate('type', 'name')
+            .populate('type', 'name description')
             .lean();
         return res.json(service);
     }

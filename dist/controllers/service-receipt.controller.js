@@ -24,6 +24,7 @@ const getAllReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 select: 'name description',
             },
         })
+            .sort({ createdAt: -1 })
             .lean();
         return res.json(monthlyReceipts);
     }
@@ -34,12 +35,16 @@ const getAllReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.getAllReceipt = getAllReceipt;
 const createReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { client, service, months, amount, fromDate } = req.body;
+        const { service, months, amount, fromDate, dni_ruc } = req.body;
+        const clientFound = yield models_1.Client.findOne({ dni_ruc }).select('+_id').lean();
+        if (!clientFound) {
+            return res.status(400).json({ message: 'cliente no encontrado' });
+        }
         const fecha = new Date(fromDate);
         const toDate = (0, date_fns_1.addMonths)(fecha, Number(months) === 0 ? Number(months) : Number(months) - 1).toLocaleDateString('es-ES');
         const price = String(Number(months) * Number(amount));
         const receipt = yield models_1.ServiceReceipt.create({
-            client: client,
+            client: clientFound._id,
             service: service,
             months: months,
             amount: price,
@@ -49,7 +54,7 @@ const createReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(200).json(receipt);
     }
     catch (error) {
-        return res.status(400).json({ msg: 'error al crear el recibo' });
+        return res.status(400).json({ message: 'error al crear el recibo' });
     }
 });
 exports.createReceipt = createReceipt;
