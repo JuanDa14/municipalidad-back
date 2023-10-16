@@ -51,11 +51,11 @@ export async function seedData(req: Request, res: Response) {
 		]);
 
 		const serviceTypes = await ServiceType.insertMany([
-			{ name: 'Agua y Desague' },
-			{ name: 'Baja Policia' },
-			{ name: 'Registro Civil' },
-			{ name: 'SISA' },
-			{ name: 'Eventos Deportivos' },
+			{ name: 'Agua y Desague',description:'Mensual' },
+			{ name: 'Baja Policia' ,description:'Mensual'},
+			{ name: 'Registro Civil' ,description:'Evento'},
+			{ name: 'SISA' ,description:'Mensual'},
+			{ name: 'Eventos Deportivos' ,description:'Evento'},
 		]);
 
 		const services = await Service.insertMany([
