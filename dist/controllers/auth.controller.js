@@ -41,8 +41,10 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!isMatch) {
             return res.status(401).json({ message: 'Credenciales incorrectas' });
         }
+        const accessToken = yield (0, helpers_1.generateJWT)(userInDB._id, 'access-token');
+        const refreshToken = yield (0, helpers_1.generateJWT)(userInDB._id, 'refresh-token');
         const { password: _ } = userInDB, user = __rest(userInDB, ["password"]);
-        return res.json({ user });
+        return res.json({ user, accessToken, refreshToken });
     }
     catch (error) {
         return res.status(500).json({ message: 'Error interno del servidor' });

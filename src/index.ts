@@ -12,6 +12,7 @@ import providerRouter from './routes/provider.route';
 import seedRouter from './routes/seed.route';
 import serviceRouter from './routes/service.route';
 import serviceTypeRouter from './routes/service-type.route';
+import chatRouter from './routes/chat.route';
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ app.use('/api/provider', providerRouter);
 app.use('/api/seed', seedRouter);
 app.use('/api/service', serviceRouter);
 app.use('/api/service-type', serviceTypeRouter);
+app.use('/api/chatbot', chatRouter);
 
 //Servidor
 app.listen(process.env.PORT, () => {

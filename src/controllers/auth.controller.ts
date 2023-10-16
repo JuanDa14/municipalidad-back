@@ -23,9 +23,12 @@ export const loginUser = async (req: Request, res: Response) => {
 			return res.status(401).json({ message: 'Credenciales incorrectas' });
 		}
 
+		const accessToken = await generateJWT(userInDB._id, 'access-token');
+		const refreshToken = await generateJWT(userInDB._id, 'refresh-token');
+
 		const { password: _, ...user } = userInDB;
 
-		return res.json({ user });
+		return res.json({ user, accessToken, refreshToken });
 	} catch (error) {
 		return res.status(500).json({ message: 'Error interno del servidor' });
 	}
