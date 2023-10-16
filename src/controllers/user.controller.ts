@@ -25,6 +25,9 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
 	const { name, email, password, role, imageUrl, address } = req.body;
+
+	console.log(req.body);
+
 	try {
 		const user = new User({
 			name,

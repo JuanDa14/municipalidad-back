@@ -22,7 +22,7 @@ export const createProviderValidator = [
 	check('name', 'El nombre es requerido').trim().not().isEmpty(),
 	check('address', 'La dirección es requerida').trim().not().isEmpty(),
 	check('document_type').trim().not().isEmpty().isIn(['DNI', 'RUC']),
-	check('state').trim().not().isEmpty().isIn(['ACTIVO', 'INACTIVO']),
+	check('state').trim().not().isEmpty().isBoolean(),
 	check('condition').trim().not().isEmpty().isIn(['HABIDO', 'NO HABIDO']),
 	check('dni_ruc').trim().not().isEmpty(),
 	check('dni_ruc').custom(isExistproviderByDNIRUC),

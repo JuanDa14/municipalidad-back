@@ -30,7 +30,7 @@ exports.createProviderValidator = [
     (0, express_validator_1.check)('name', 'El nombre es requerido').trim().not().isEmpty(),
     (0, express_validator_1.check)('address', 'La dirección es requerida').trim().not().isEmpty(),
     (0, express_validator_1.check)('document_type').trim().not().isEmpty().isIn(['DNI', 'RUC']),
-    (0, express_validator_1.check)('state').trim().not().isEmpty().isIn(['ACTIVO', 'INACTIVO']),
+    (0, express_validator_1.check)('state').trim().not().isEmpty().isBoolean(),
     (0, express_validator_1.check)('condition').trim().not().isEmpty().isIn(['HABIDO', 'NO HABIDO']),
     (0, express_validator_1.check)('dni_ruc').trim().not().isEmpty(),
     (0, express_validator_1.check)('dni_ruc').custom(exports.isExistproviderByDNIRUC),

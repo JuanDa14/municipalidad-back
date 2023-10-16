@@ -28,6 +28,7 @@ const UserSchema = new mongoose_1.Schema({
     },
     state: {
         type: Boolean,
+        required: [true, 'El estado es obligatorio'],
         default: true,
     },
     address: {

@@ -33,20 +33,19 @@ const getProvider = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getProvider = getProvider;
 const createProvider = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, dni_ruc, document_type, address, condition, state } = req.body;
+    const { name, dni_ruc, document_type, address } = req.body;
     try {
         const provider = new models_1.Provider({
             name,
             dni_ruc,
             document_type,
             address,
-            condition,
-            state,
         });
         yield provider.save();
         return res.json(provider);
     }
     catch (error) {
+        console.log(error);
         return res.json({ message: 'Error interno del servidor' });
     }
 });

@@ -38,6 +38,7 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUser = getUser;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password, role, imageUrl, address } = req.body;
+    console.log(req.body);
     try {
         const user = new models_1.User({
             name,

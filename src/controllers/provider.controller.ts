@@ -23,7 +23,7 @@ export const getProvider = async (req: Request, res: Response) => {
 };
 
 export const createProvider = async (req: Request, res: Response) => {
-	const { name, dni_ruc, document_type, address, condition, state } = req.body;
+	const { name, dni_ruc, document_type, address } = req.body;
 
 	try {
 		const provider = new Provider({
@@ -31,14 +31,14 @@ export const createProvider = async (req: Request, res: Response) => {
 			dni_ruc,
 			document_type,
 			address,
-			condition,
-			state,
 		});
 
 		await provider.save();
 
 		return res.json(provider);
 	} catch (error) {
+		console.log(error);
+
 		return res.json({ message: 'Error interno del servidor' });
 	}
 };

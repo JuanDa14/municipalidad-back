@@ -28,6 +28,7 @@ const UserSchema = new Schema(
 		},
 		state: {
 			type: Boolean,
+			required: [true, 'El estado es obligatorio'],
 			default: true,
 		},
 		address: {

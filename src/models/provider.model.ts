@@ -21,11 +21,14 @@ const ProviderSchema = new Schema(
 		},
 		condition: {
 			type: String,
+			enum: ['HABIDO', 'NO HABIDO'],
 			required: [true, 'La condición es obligatoria'],
+			default: 'HABIDO',
 		},
 		state: {
 			type: Boolean,
 			required: [true, 'El estado es obligatorio'],
+			default: true,
 		},
 		document_type: {
 			type: String,
