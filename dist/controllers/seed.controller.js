@@ -60,11 +60,11 @@ function seedData(req, res) {
                 },
             ]);
             const serviceTypes = yield models_1.ServiceType.insertMany([
-                { name: 'Agua y Desague' },
-                { name: 'Baja Policia' },
-                { name: 'Registro Civil' },
-                { name: 'SISA' },
-                { name: 'Eventos Deportivos' },
+                { name: 'Agua y Desague', description: 'Mensual' },
+                { name: 'Baja Policia', description: 'Mensual' },
+                { name: 'Registro Civil', description: 'Evento' },
+                { name: 'SISA', description: 'Mensual' },
+                { name: 'Eventos Deportivos', description: 'Evento' },
             ]);
             const services = yield models_1.Service.insertMany([
                 { name: 'Agua y Desague', state: true, type: serviceTypes[0]._id },
