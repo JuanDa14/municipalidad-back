@@ -12,12 +12,21 @@ const ServiceReceiptSchema = new mongoose_1.Schema({
         ref: 'Service',
         required: [true, 'El servicio es obligatorio'],
     },
+    months: {
+        type: Number
+    },
     amount: {
         type: Number,
         required: [true, 'El monto es obligatorio'],
     },
+    fromDate: {
+        type: String,
+    },
+    toDate: {
+        type: String,
+    }
 }, {
     timestamps: true,
 });
-const ServiceReceipt = mongoose_1.models.User || (0, mongoose_1.model)('ServiceReceipt', ServiceReceiptSchema);
+const ServiceReceipt = mongoose_1.models.ServiceReceipt || (0, mongoose_1.model)('ServiceReceipt', ServiceReceiptSchema);
 exports.default = ServiceReceipt;

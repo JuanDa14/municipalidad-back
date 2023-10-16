@@ -15,10 +15,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./auth.controller"), exports);
+__exportStar(require("./chat.controller"), exports);
 __exportStar(require("./client.controller"), exports);
+__exportStar(require("./index"), exports);
 __exportStar(require("./provider.controller"), exports);
 __exportStar(require("./role.controller"), exports);
 __exportStar(require("./seed.controller"), exports);
+__exportStar(require("./service-receipt.controller"), exports);
 __exportStar(require("./service-type.controller"), exports);
 __exportStar(require("./service.controller"), exports);
 __exportStar(require("./user.controller"), exports);

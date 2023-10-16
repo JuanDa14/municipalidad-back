@@ -6,6 +6,7 @@ const middlewares_1 = require("../middlewares");
 const router = (0, express_1.Router)();
 router.get('/', controllers_1.getClients);
 router.get('/:id', middlewares_1.getClientValidator, controllers_1.getClient);
+router.get('/dni/:dni', controllers_1.getClientByDni);
 router.post('/', middlewares_1.createClientValidator, controllers_1.createClient);
 router.patch('/:id', middlewares_1.getClientValidator, controllers_1.updateClient);
 router.delete('/:id', middlewares_1.getClientValidator, controllers_1.deleteClient);
