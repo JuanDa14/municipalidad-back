@@ -16,6 +16,7 @@ const seed_route_1 = __importDefault(require("./routes/seed.route"));
 const service_route_1 = __importDefault(require("./routes/service.route"));
 const service_type_route_1 = __importDefault(require("./routes/service-type.route"));
 const chat_route_1 = __importDefault(require("./routes/chat.route"));
+const service_receipt_route_1 = __importDefault(require("./routes/service-receipt.route"));
 dotenv_1.default.config();
 const corsOptions = {
     origin: process.env.FRONTEND_URL,
@@ -44,6 +45,7 @@ app.use('/api/provider', provider_route_1.default);
 app.use('/api/seed', seed_route_1.default);
 app.use('/api/service', service_route_1.default);
 app.use('/api/service-type', service_type_route_1.default);
+app.use('/api/service-receipt', service_receipt_route_1.default);
 app.use('/api/chatbot', chat_route_1.default);
 //Servidor
 app.listen(process.env.PORT, () => {

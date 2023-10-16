@@ -14,15 +14,17 @@ const models_1 = require("../models");
 const date_fns_1 = require("date-fns");
 const getAllReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const monthlyReceipts = yield models_1.ServiceReceipt.find().populate('client', 'name dni_ruc')
+        const monthlyReceipts = yield models_1.ServiceReceipt.find()
+            .populate('client', 'name dni_ruc')
             .populate({
             path: 'service',
             select: 'name dni_ruc',
             populate: {
                 path: 'type',
                 select: 'name description',
-            }
-        }).lean();
+            },
+        })
+            .lean();
         return res.json(monthlyReceipts);
     }
     catch (error) {
@@ -42,12 +44,12 @@ const createReceipt = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             months: months,
             amount: price,
             fromDate: fecha.toLocaleDateString('es-ES'),
-            toDate: toDate
+            toDate: toDate,
         });
         return res.status(200).json(receipt);
     }
     catch (error) {
-        return res.status(400).json({ "msg": "error al crear el recibo" });
+        return res.status(400).json({ msg: 'error al crear el recibo' });
     }
 });
 exports.createReceipt = createReceipt;
