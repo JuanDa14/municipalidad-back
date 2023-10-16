@@ -1,6 +1,7 @@
+import { IServiceType } from "./service-type.interface";
+
 export interface IService {
 	name: string;
-	description: string;
-	price: number;
 	state: boolean;
+	type: IServiceType
 }

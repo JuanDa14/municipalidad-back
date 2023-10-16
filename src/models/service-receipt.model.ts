@@ -13,10 +13,19 @@ const ServiceReceiptSchema = new Schema(
 			ref: 'Service',
 			required: [true, 'El servicio es obligatorio'],
 		},
+		months:{
+			type:Number
+		},
 		amount: {
 			type: Number,
 			required: [true, 'El monto es obligatorio'],
 		},
+		fromDate:{
+			type:String,
+		},
+		toDate:{
+			type:String,
+		}
 	},
 	{
 		timestamps: true,
@@ -24,6 +33,6 @@ const ServiceReceiptSchema = new Schema(
 );
 
 const ServiceReceipt: Model<IServiceReceipt> =
-	models.User || model('ServiceReceipt', ServiceReceiptSchema);
+	models.ServiceReceipt || model('ServiceReceipt', ServiceReceiptSchema);
 
 export default ServiceReceipt;

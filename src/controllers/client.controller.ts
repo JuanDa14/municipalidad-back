@@ -66,3 +66,14 @@ export const deleteClient = async (req: Request, res: Response) => {
 		return res.json({ message: 'Error interno del servidor' });
 	}
 };
+
+export const getClientByDni = async (req: Request, res: Response) => {
+	const { dni } = req.params;
+
+	try {
+		const client = await Client.findOne({'dni_ruc':dni}).lean();
+		return res.json(client);
+	} catch (error) {
+		return res.json({ message: 'Error interno del servidor' });
+	}
+};

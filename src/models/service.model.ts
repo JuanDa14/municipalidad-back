@@ -10,15 +10,6 @@ const ServiceSchema = new Schema(
 			unique: true,
 			uppercase: true,
 		},
-		description: {
-			type: String,
-			trim: true,
-		},
-		price: {
-			type: Number,
-			required: [true, 'El precio es obligatorio'],
-			default: 0,
-		},
 		state: {
 			type: Boolean,
 			default: true,
