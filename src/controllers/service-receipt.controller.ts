@@ -22,6 +22,16 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 		return res.json({ message: 'Error interno del servidor' });
 	}
 };
+export const getReceiptById = async(req: Request, res: Response)=>{
+	try {
+		const {id} = req.params
+		const receipt =await ServiceReceipt.findById(id).populate("client", "name").lean()
+		return res.status(200).json(receipt);
+
+	} catch (error) {
+		return res.json({ message: 'Error interno del servidor' });
+	}
+}
 
 export const createReceipt = async (req: Request, res: Response) => {
 	try {
@@ -39,9 +49,10 @@ export const createReceipt = async (req: Request, res: Response) => {
 			fecha,
 			Number(months) === 0 ? Number(months) : Number(months) - 1
 		).toLocaleDateString('es-ES');
-
-		const price = String(Number(months) * Number(amount));
-
+		let price = amount
+		if (Number(months)>0) {
+			price = String(Number(months) * Number(amount));
+		}
 		const receipt = await ServiceReceipt.create({
 			client: clientFound._id,
 			service: service,
