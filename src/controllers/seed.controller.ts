@@ -15,7 +15,6 @@ export async function seedData(req: Request, res: Response) {
 			Service.deleteMany(),
 			ServiceType.deleteMany(),
 			Client.deleteMany(),
-			ServiceReceipt.deleteMany(),
 		]);
 
 		//Roles
@@ -86,106 +85,8 @@ export async function seedData(req: Request, res: Response) {
 				document_type: 'DNI',
 			},
 		]);
-		await ServiceReceipt.insertMany([
-			//cliente 1
-			{
-				client: clients[0],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/01/2023',
-				toDate: '10/01/2023',
-			},
-			{
-				client: clients[0],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/02/2023',
-				toDate: '10/02/2023',
-			},
-			{
-				client: clients[0],
-				service: services[1],
-				months: 1,
-				amount: 30,
-				fromDate: '10/02/2023',
-				toDate: '10/01/2023',
-			},
-			{
-				client: clients[0],
-				service: services[3],
-				months: 0,
-				amount: 50,
-				fromDate: '25/02/2023',
-				toDate: '25/02/2023',
-			},
-			{
-				client: clients[0],
-				service: services[4],
-				months: 0,
-				amount: 400,
-				fromDate: '30/02/2023',
-				toDate: '30/02/2023',
-			},
-			{
-				client: clients[0],
-				service: services[7],
-				months: 0,
-				amount: 130,
-				fromDate: '10/03/2023',
-				toDate: '10/03/2023',
-			},
-			//Cliente 2
-			{
-				client: clients[1],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/01/2023',
-				toDate: '10/01/2023',
-			},
-			{
-				client: clients[1],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/02/2023',
-				toDate: '10/02/2023',
-			},
-			{
-				client: clients[1],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/03/2023',
-				toDate: '10/03/2023',
-			},
-			{
-				client: clients[1],
-				service: services[4],
-				months: 0,
-				amount: 200,
-				fromDate: '16/01/2023',
-				toDate: '16/01/2023',
-			},
-			{
-				client: clients[1],
-				service: services[0],
-				months: 1,
-				amount: 30,
-				fromDate: '10/04/2023',
-				toDate: '10/04/2023',
-			},
-			{
-				client: clients[1],
-				service: services[5],
-				months: 0,
-				amount: 123,
-				fromDate: '20/03/2023',
-				toDate: '20/03/2023',
-			},
-		]);
+
+
 
 		return res.status(200).json({ message: 'Seed ejecutado correctamente' });
 	} catch (error) {

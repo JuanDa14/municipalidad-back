@@ -7,8 +7,7 @@ export interface IServiceReceipt {
 	service: IService;
 	months:number;
 	amount: number;
-	fromDate:string,
-	toDate:string,
+	paymentDate:string,
 	createdAt: string;
 	updatedAt: string;
 }

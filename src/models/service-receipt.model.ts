@@ -20,12 +20,9 @@ const ServiceReceiptSchema = new Schema(
 			type: Number,
 			required: [true, 'El monto es obligatorio'],
 		},
-		fromDate:{
+		paymentDate:{
 			type:String,
 		},
-		toDate:{
-			type:String,
-		}
 	},
 	{
 		timestamps: true,

@@ -33,23 +33,27 @@ export const getReceiptById = async(req: Request, res: Response)=>{
 	}
 }
 
+
 export const createReceipt = async (req: Request, res: Response) => {
 	try {
-		const { service, months, amount, fromDate, dni_ruc } = req.body;
-
+		const { service, months, amount, paymentDate, dni_ruc } = req.body;
+		//Encontrando cliente Cliente
 		const clientFound = await Client.findOne({ dni_ruc }).select('+_id').lean();
-
+		const serviceFound = await Service.findOne({_id : service}).lean()
+		//Si no encuentra el cliente
 		if (!clientFound) {
 			return res.status(400).json({ message: 'cliente no encontrado' });
 		}
-
-		const fecha = new Date(fromDate);
+		//Encontrando fecha
+		const fecha = new Date(paymentDate);
 
 		const toDate = addMonths(
 			fecha,
 			Number(months) === 0 ? Number(months) : Number(months) - 1
 		).toLocaleDateString('es-ES');
+
 		let price = amount
+		//Calculando precio total si es mayor a 0
 		if (Number(months)>0) {
 			price = String(Number(months) * Number(amount));
 		}
