@@ -14,7 +14,7 @@ const ServiceReceiptDetailSchema = new Schema(
 			required: [true, 'El servicio es obligatorio'],
 		},
 		amount:{
-			type:Number
+			type:String
 		}
 	},
 	{

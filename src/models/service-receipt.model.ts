@@ -14,10 +14,10 @@ const ServiceReceiptSchema = new Schema(
 			required: [true, 'El servicio es obligatorio'],
 		},
 		months:{
-			type:Number
+			type:String
 		},
 		amount: {
-			type: Number,
+			type: String,
 			required: [true, 'El monto es obligatorio'],
 		},
 		paymentDate:{

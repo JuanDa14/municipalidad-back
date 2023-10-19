@@ -5,8 +5,8 @@ export interface IServiceReceipt {
 	_id: string;
 	client: IClient;
 	service: IService;
-	months:number;
-	amount: number;
+	months:string;
+	amount: string;
 	paymentDate:string,
 	createdAt: string;
 	updatedAt: string;

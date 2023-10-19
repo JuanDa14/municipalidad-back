@@ -2,6 +2,7 @@ import { Request, Response, request } from 'express';
 import { Client, ServiceReceipt, ServiceType } from '../models';
 import { addMonths } from 'date-fns';
 import { Service } from '../models'; // Asegúrate de importar el modelo de Service
+import ServiceReceiptDetail from '../models/service-receipt-detail.models';
 
 export const getAllReceipt = async (req: Request, res: Response) => {
 	try {
@@ -12,7 +13,7 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 				select: 'name dni_ruc',
 				populate: {
 					path: 'type',
-					select: 'name description',
+					select: 'description',
 				},
 			})
 			.sort({ createdAt: -1 })
@@ -25,8 +26,13 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 export const getReceiptById = async(req: Request, res: Response)=>{
 	try {
 		const {id} = req.params
-		const receipt =await ServiceReceipt.findById(id).populate("client", "name").lean()
-		return res.status(200).json(receipt);
+		const receipt =await ServiceReceipt.findById(id).populate("client", "name email address dni_ruc").populate("service", "name").lean()
+		const details = await ServiceReceiptDetail.find({receipt:receipt}).lean()
+		return res.status(200).json({
+			receipt,
+			details
+		}
+		);
 
 	} catch (error) {
 		return res.json({ message: 'Error interno del servidor' });
@@ -44,16 +50,14 @@ export const createReceipt = async (req: Request, res: Response) => {
 		if (!clientFound) {
 			return res.status(400).json({ message: 'cliente no encontrado' });
 		}
-		//Encontrando fecha
-		const fecha = new Date(paymentDate);
+		if (!serviceFound) {
+			return res.status(400).json({ message: 'Servicio no encontrado' });
+		}
+		//fecha de pago
+		const today = new Date().toLocaleDateString("es-ES");
 
-		const toDate = addMonths(
-			fecha,
-			Number(months) === 0 ? Number(months) : Number(months) - 1
-		).toLocaleDateString('es-ES');
-
+		//Se controla si es un servicio de evento o un servicio mensual
 		let price = amount
-		//Calculando precio total si es mayor a 0
 		if (Number(months)>0) {
 			price = String(Number(months) * Number(amount));
 		}
@@ -62,9 +66,21 @@ export const createReceipt = async (req: Request, res: Response) => {
 			service: service,
 			months: months,
 			amount: price,
-			fromDate: fecha.toLocaleDateString('es-ES'),
-			toDate: toDate,
+			paymentDate: today,
 		});
+
+		//Creando detalle del recibo
+		if (Number(months)>0) {
+			const date = new Date(paymentDate)
+			for (let index = 0; index < Number(months); index++) {
+				await ServiceReceiptDetail.create({
+					receipt:receipt,
+					paymentDate:addMonths(date,index).toLocaleDateString("es-ES"),
+					amount:amount
+				})
+			}
+		}
+
 		return res.status(200).json(receipt);
 	} catch (error) {
 		return res.status(400).json({ message: 'error al crear el recibo' });
