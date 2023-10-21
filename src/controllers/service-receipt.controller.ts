@@ -26,7 +26,14 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 export const getReceiptById = async(req: Request, res: Response)=>{
 	try {
 		const {id} = req.params
-		const receipt =await ServiceReceipt.findById(id).populate("client", "_id name email address dni_ruc").populate("service", "_id name").lean()
+		const receipt =await ServiceReceipt.findById(id).populate("client", "_id name email address dni_ruc").populate({
+				path: 'service',
+				select: 'name dni_ruc',
+				populate: {
+					path: 'type',
+					select: 'description',
+				},
+			}).lean()
 		const details = await ServiceReceiptDetail.find({receipt:receipt}).lean()
 		return res.status(200).json({
 			receipt,
