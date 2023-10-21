@@ -3,6 +3,7 @@ import { IService } from "./service.interface";
 
 export interface IServiceReceipt {
 	_id: string;
+	autoIncrement:number
 	client: IClient;
 	service: IService;
 	months:string;

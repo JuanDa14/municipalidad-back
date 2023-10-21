@@ -62,8 +62,8 @@ export const createReceipt = async (req: Request, res: Response) => {
 			price = String(Number(months) * Number(amount));
 		}
 		const receipt = await ServiceReceipt.create({
-			client: clientFound._id,
-			service: service,
+			client: clientFound,
+			service: serviceFound,
 			months: months,
 			amount: price,
 			paymentDate: today,

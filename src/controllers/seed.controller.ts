@@ -87,14 +87,6 @@ export async function seedData(req: Request, res: Response) {
 			},
 		]);
 
-		await ServiceReceipt.insertMany([
-			{
-			client:clients[0],
-			service:services[0],
-			amount:30,
-			months:3,
-			paymentDate: new Date().toLocaleDateString("es-Es")}
-		])
 
 
 
