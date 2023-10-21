@@ -26,7 +26,7 @@ export const getAllReceipt = async (req: Request, res: Response) => {
 export const getReceiptById = async(req: Request, res: Response)=>{
 	try {
 		const {id} = req.params
-		const receipt =await ServiceReceipt.findById(id).populate("client", "name email address dni_ruc").populate("service", "name").lean()
+		const receipt =await ServiceReceipt.findById(id).populate("client", "_id name email address dni_ruc").populate("service", "_id name").lean()
 		const details = await ServiceReceiptDetail.find({receipt:receipt}).lean()
 		return res.status(200).json({
 			receipt,
@@ -48,10 +48,10 @@ export const createReceipt = async (req: Request, res: Response) => {
 		const serviceFound = await Service.findOne({_id : service}).lean()
 		//Si no encuentra el cliente
 		if (!clientFound) {
-			return res.status(400).json({ message: 'cliente no encontrado' });
+			return res.status(401).json({ message: 'cliente no encontrado' });
 		}
 		if (!serviceFound) {
-			return res.status(400).json({ message: 'Servicio no encontrado' });
+			return res.status(401).json({ message: 'Servicio no encontrado' });
 		}
 		//fecha de pago
 		const today = new Date().toLocaleDateString("es-ES");
@@ -75,7 +75,7 @@ export const createReceipt = async (req: Request, res: Response) => {
 			for (let index = 0; index < Number(months); index++) {
 				await ServiceReceiptDetail.create({
 					receipt:receipt,
-					paymentDate:addMonths(date,index).toLocaleDateString("es-ES"),
+					paymentDate:addMonths(date,index).toLocaleDateString("en"),
 					amount:amount
 				})
 			}
@@ -86,3 +86,16 @@ export const createReceipt = async (req: Request, res: Response) => {
 		return res.status(400).json({ message: 'error al crear el recibo' });
 	}
 };
+
+export const getLastMonth =async (req:Request,res:Response) => {
+	const {client,service} = req.body
+	try {
+		const found =  await ServiceReceiptDetail.findOne({
+			"receipt.client._id":client,
+			"receipt.service._id":service
+		}).sort({createdAt:-1}).lean()
+		res.status(200).json(found)
+	} catch (error) {
+		res.status(400).json({message: "Erro al obtener el mes"})
+	}
+}

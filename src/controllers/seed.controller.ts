@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 
 import { Client, Role, Service, ServiceReceipt, ServiceType, User } from '../models';
+import ServiceReceiptDetail from '../models/service-receipt-detail.models';
 
 export async function seedData(req: Request, res: Response) {
 	try {
@@ -15,7 +16,8 @@ export async function seedData(req: Request, res: Response) {
 			Service.deleteMany(),
 			ServiceType.deleteMany(),
 			Client.deleteMany(),
-			ServiceReceipt.deleteMany()
+			ServiceReceipt.deleteMany(),
+			ServiceReceiptDetail.deleteMany()
 		]);
 
 		//Roles

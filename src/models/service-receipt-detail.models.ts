@@ -9,9 +9,7 @@ const ServiceReceiptDetailSchema = new Schema(
 			required: [true, 'El recibo es obligatorio'],
 		},
 		paymentDate: {
-			type: Schema.Types.ObjectId,
-			ref: 'Service',
-			required: [true, 'El servicio es obligatorio'],
+			type: String,
 		},
 		amount:{
 			type:String
