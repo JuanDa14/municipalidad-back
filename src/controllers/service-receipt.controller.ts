@@ -90,10 +90,10 @@ export const createReceipt = async (req: Request, res: Response) => {
 export const getLastMonth =async (req:Request,res:Response) => {
 	const {client,service} = req.body
 	try {
-		const found =  await ServiceReceiptDetail.findOne({
-			"receipt.client._id":client,
-			"receipt.service._id":service
-		}).sort({createdAt:-1}).lean()
+		const found =  await ServiceReceiptDetail.findOne().populate({
+			path:"receipt",
+			match:[{client:client},{service:service}]
+		}).lean()
 		res.status(200).json(found)
 	} catch (error) {
 		res.status(400).json({message: "Erro al obtener el mes"})
