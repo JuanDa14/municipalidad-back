@@ -4,5 +4,7 @@ const express_1 = require("express");
 const controllers_1 = require("../controllers");
 const router = (0, express_1.Router)();
 router.get('/', controllers_1.getAllReceipt);
+router.get('/print/:id', controllers_1.getReceiptById);
 router.post('/', controllers_1.createReceipt);
+router.post('/findLastpayment', controllers_1.getLastMonth);
 exports.default = router;
