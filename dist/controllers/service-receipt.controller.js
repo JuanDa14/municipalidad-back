@@ -41,7 +41,14 @@ exports.getAllReceipt = getAllReceipt;
 const getReceiptById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const receipt = yield models_1.ServiceReceipt.findById(id).populate("client", "_id name email address dni_ruc").populate("service", "_id name").lean();
+        const receipt = yield models_1.ServiceReceipt.findById(id).populate("client", "_id name email address dni_ruc").populate({
+            path: 'service',
+            select: 'name dni_ruc',
+            populate: {
+                path: 'type',
+                select: 'description',
+            },
+        }).lean();
         const details = yield service_receipt_detail_models_1.default.find({ receipt: receipt }).lean();
         return res.status(200).json({
             receipt,
@@ -101,11 +108,28 @@ exports.createReceipt = createReceipt;
 const getLastMonth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { client, service } = req.body;
     try {
-        const found = yield service_receipt_detail_models_1.default.findOne().populate({
+        const receiptfounded = yield models_1.ServiceReceipt.findOne({
+            $and: [
+                { client: client },
+                { service: service }
+            ]
+        }).populate({ path: "client" }).populate({ path: "service" }).sort({ createdAt: -1 }).lean();
+        if (!receiptfounded) {
+            return res.status(200).json({ paymentDate: "Ninguno" });
+        }
+        const found = yield service_receipt_detail_models_1.default.findOne({ receipt: receiptfounded }).populate({
             path: "receipt",
-            match: [{ client: client }, { service: service }]
-        }).lean();
-        res.status(200).json(found);
+            populate: [{
+                    path: "client",
+                }, {
+                    path: "service",
+                }
+            ]
+        }).sort({ createdAt: -1 }).lean();
+        if (found) {
+            return res.status(200).json(found);
+        }
+        return res.status(200).json({ paymentDate: "Ninguno" });
     }
     catch (error) {
         res.status(400).json({ message: "Erro al obtener el mes" });
