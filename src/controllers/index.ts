@@ -1,7 +1,6 @@
 export * from './auth.controller';
 export * from './chat.controller';
 export * from './client.controller';
-export * from './index';
 export * from './provider.controller';
 export * from './role.controller';
 export * from './seed.controller';

@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "set \"NODE_ENV=development\" && ts-node-dev ./src/index.ts",
 		"start": "set \"NODE_ENV=production\" && node dist/index.js",
+		"train": "ts-node-dev ./src/helpers/train-bot.ts",
 		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},

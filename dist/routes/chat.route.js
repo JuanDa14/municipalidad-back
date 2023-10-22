@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const chat_controller_1 = require("../controllers/chat.controller");
+const controllers_1 = require("../controllers");
 const router = (0, express_1.Router)();
-router.post('/message', chat_controller_1.messageForQuestion);
+router.post('/message', controllers_1.messageForQuestion);
 exports.default = router;
