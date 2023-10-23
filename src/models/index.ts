@@ -7,3 +7,4 @@ export { default as Service } from './service.model';
 export { default as User } from './user.model';
 export { default as Provider } from './provider.model';
 export { default as ServiceType } from './service-type.model';
+export { default as RequestAttachment } from './request-attachment.model';

@@ -15,10 +15,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./client.interface"), exports);
-__exportStar(require("./index"), exports);
 __exportStar(require("./payment-history.interface"), exports);
 __exportStar(require("./permission-request.interface"), exports);
 __exportStar(require("./provider.interface"), exports);
+__exportStar(require("./request-attachment.interface"), exports);
 __exportStar(require("./role.interface"), exports);
 __exportStar(require("./service-receipt-detail.interface"), exports);
 __exportStar(require("./service-receipt.interface"), exports);

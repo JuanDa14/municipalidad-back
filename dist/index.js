@@ -17,6 +17,7 @@ const service_route_1 = __importDefault(require("./routes/service.route"));
 const service_type_route_1 = __importDefault(require("./routes/service-type.route"));
 const chat_route_1 = __importDefault(require("./routes/chat.route"));
 const service_receipt_route_1 = __importDefault(require("./routes/service-receipt.route"));
+const request_attachment_route_1 = __importDefault(require("./routes/request-attachment.route"));
 dotenv_1.default.config();
 const corsOptions = {
     origin: process.env.FRONTEND_URL,
@@ -47,6 +48,7 @@ app.use('/api/service', service_route_1.default);
 app.use('/api/service-type', service_type_route_1.default);
 app.use('/api/service-receipt', service_receipt_route_1.default);
 app.use('/api/chatbot', chat_route_1.default);
+app.use('/api/request-attachment', request_attachment_route_1.default);
 //Servidor
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);

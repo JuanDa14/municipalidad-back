@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+const router = (0, express_1.Router)();
+router.get('/', controllers_1.getRequestAttachments);
+router.get('/:id', middlewares_1.getRequestAttachmentValidor, controllers_1.getRequestAttachment);
+router.post('/', middlewares_1.createRequestAttachmentValidor, controllers_1.createRequestAttachment);
+router.patch('/:id', middlewares_1.getRequestAttachmentValidor, controllers_1.updateRequestAttachment);
+router.delete('/:id', middlewares_1.getRequestAttachmentValidor, controllers_1.deleteRequestAttachment);
+exports.default = router;

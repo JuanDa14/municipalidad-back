@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServiceType = exports.Provider = exports.User = exports.Service = exports.ServiceReceipt = exports.Role = exports.PermissionRequest = exports.PaymentHistory = exports.Client = void 0;
+exports.RequestAttachment = exports.ServiceType = exports.Provider = exports.User = exports.Service = exports.ServiceReceipt = exports.Role = exports.PermissionRequest = exports.PaymentHistory = exports.Client = void 0;
 var client_model_1 = require("./client.model");
 Object.defineProperty(exports, "Client", { enumerable: true, get: function () { return __importDefault(client_model_1).default; } });
 var payment_history_model_1 = require("./payment-history.model");
@@ -22,3 +22,5 @@ var provider_model_1 = require("./provider.model");
 Object.defineProperty(exports, "Provider", { enumerable: true, get: function () { return __importDefault(provider_model_1).default; } });
 var service_type_model_1 = require("./service-type.model");
 Object.defineProperty(exports, "ServiceType", { enumerable: true, get: function () { return __importDefault(service_type_model_1).default; } });
+var request_attachment_model_1 = require("./request-attachment.model");
+Object.defineProperty(exports, "RequestAttachment", { enumerable: true, get: function () { return __importDefault(request_attachment_model_1).default; } });

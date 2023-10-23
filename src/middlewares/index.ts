@@ -3,6 +3,7 @@ export * from './client.middleware';
 export * from './field.middleware';
 export * from './jwt-verify-token.middleware';
 export * from './provider.middleware';
+export * from './request-attachment.middleware';
 export * from './role.middleware';
 export * from './service.middleware';
 export * from './user.middleware';
