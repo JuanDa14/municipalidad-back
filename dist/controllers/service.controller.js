@@ -34,11 +34,17 @@ const getService = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.getService = getService;
 const createService = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, price, type } = req.body;
     try {
-        const service = yield models_1.Service.create(req.body);
+        const service = yield models_1.Service.create({
+            name,
+            price,
+            type,
+        });
         return res.json(service);
     }
     catch (error) {
+        console.log(error);
         return res.json({ message: 'Error interno del servidor' });
     }
 });

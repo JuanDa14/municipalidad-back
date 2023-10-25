@@ -22,10 +22,19 @@ export const getService = async (req: Request, res: Response) => {
 };
 
 export const createService = async (req: Request, res: Response) => {
+	const { name, price, type } = req.body;
+
 	try {
-		const service = await Service.create(req.body);
+		const service = await Service.create({
+			name,
+			price,
+			type,
+		});
+
 		return res.json(service);
 	} catch (error) {
+		console.log(error);
+
 		return res.json({ message: 'Error interno del servidor' });
 	}
 };

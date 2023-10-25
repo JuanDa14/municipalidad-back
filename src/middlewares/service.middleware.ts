@@ -23,6 +23,8 @@ export const isNotExistServiceById = async (id: string) => {
 
 export const createServiceValidator = [
 	check('name', 'El nombre es requerido').trim().not().isEmpty().isLength({ min: 3 }),
+	check('type', 'El tipo es requerido').trim().not().isEmpty().isMongoId(),
+	check('price', 'El tipo es requerido').trim().not().isEmpty().isNumeric(),
 	check('name').custom(isExistService),
 	validateFields,
 ];

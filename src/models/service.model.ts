@@ -18,6 +18,10 @@ const ServiceSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'ServiceType',
 		},
+		price: {
+			type: Number,
+			required: [true, 'El precio es obligatorio'],
+		},
 	},
 	{
 		timestamps: true,

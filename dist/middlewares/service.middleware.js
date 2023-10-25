@@ -30,6 +30,8 @@ const isNotExistServiceById = (id) => __awaiter(void 0, void 0, void 0, function
 exports.isNotExistServiceById = isNotExistServiceById;
 exports.createServiceValidator = [
     (0, express_validator_1.check)('name', 'El nombre es requerido').trim().not().isEmpty().isLength({ min: 3 }),
+    (0, express_validator_1.check)('type', 'El tipo es requerido').trim().not().isEmpty().isMongoId(),
+    (0, express_validator_1.check)('price', 'El tipo es requerido').trim().not().isEmpty().isNumeric(),
     (0, express_validator_1.check)('name').custom(exports.isExistService),
     field_middleware_1.validateFields,
 ];

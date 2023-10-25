@@ -17,6 +17,10 @@ const ServiceSchema = new mongoose_1.Schema({
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'ServiceType',
     },
+    price: {
+        type: Number,
+        required: [true, 'El precio es obligatorio'],
+    },
 }, {
     timestamps: true,
 });
