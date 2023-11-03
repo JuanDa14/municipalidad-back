@@ -15,6 +15,7 @@ import serviceTypeRouter from './routes/service-type.route';
 import chatRouter from './routes/chat.route';
 import ServiceReceipt from './routes/service-receipt.route';
 import requestAttachment from './routes/request-attachment.route';
+import dashboardRouter from './routes/dashboard.route';
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Rutas
 app.use('/api/user', userRouter);
+app.use('/api/dashboard', dashboardRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/rol', roleRouter);
 app.use('/api/client', clientRouter);

@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./auth.controller"), exports);
 __exportStar(require("./chat.controller"), exports);
 __exportStar(require("./client.controller"), exports);
+__exportStar(require("./dashboard.controller"), exports);
 __exportStar(require("./provider.controller"), exports);
 __exportStar(require("./request-attachment"), exports);
 __exportStar(require("./role.controller"), exports);

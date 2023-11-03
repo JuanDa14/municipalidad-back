@@ -18,6 +18,7 @@ const service_type_route_1 = __importDefault(require("./routes/service-type.rout
 const chat_route_1 = __importDefault(require("./routes/chat.route"));
 const service_receipt_route_1 = __importDefault(require("./routes/service-receipt.route"));
 const request_attachment_route_1 = __importDefault(require("./routes/request-attachment.route"));
+const dashboard_route_1 = __importDefault(require("./routes/dashboard.route"));
 dotenv_1.default.config();
 const corsOptions = {
     origin: process.env.FRONTEND_URL,
@@ -39,6 +40,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // );
 //Rutas
 app.use('/api/user', user_route_1.default);
+app.use('/api/dashboard', dashboard_route_1.default);
 app.use('/api/auth', auth_route_1.default);
 app.use('/api/rol', role_route_1.default);
 app.use('/api/client', client_route_1.default);
