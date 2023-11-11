@@ -86,21 +86,20 @@ export const getDashboard = async (req: Request, res: Response) => {
 					total: { $sum: { $toDouble: '$amount' } },
 				},
 			},
-		]);
+		]).sort({ _id: 1 });
 
 		return res.json({
-			users: usersByCurrentMonth.length,
-			receipts: receiptByCurrentMonth.length,
-			requests: requestsByCurrentMonth.length,
-			totalReceiptByCurrentMonth: totalPaymentsReceipt[0],
+			users: usersByCurrentMonth[0].total || 0,
+			receipts: receiptByCurrentMonth[0].total || 0,
+			requests: requestsByCurrentMonth[0].total || 0,
+			totalReceiptByCurrentMonth: totalPaymentsReceipt[0] || { _id: currentMonth, total: 0 },
 			lastRequests,
 			charts: {
-				receiptsPaymentByMonth,
+				receiptsPaymentByMonth: receiptsPaymentByMonth || [],
 			},
 		});
 	} catch (error) {
 		console.log(error);
-
 		return res.json({ message: 'Error interno del servidor' });
 	}
 };
