@@ -10,3 +10,4 @@ export * from './service-receipt.controller';
 export * from './service-type.controller';
 export * from './service.controller';
 export * from './user.controller';
+export * from './report.controller';

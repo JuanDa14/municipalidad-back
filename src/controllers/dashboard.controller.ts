@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { RequestAttachment, ServiceReceipt, User } from '../models';
+import { RequestAttachment, Service, ServiceReceipt, User } from '../models';
 
 export const getDashboard = async (req: Request, res: Response) => {
 	try {

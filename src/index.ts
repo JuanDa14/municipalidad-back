@@ -16,6 +16,7 @@ import chatRouter from './routes/chat.route';
 import ServiceReceipt from './routes/service-receipt.route';
 import requestAttachment from './routes/request-attachment.route';
 import dashboardRouter from './routes/dashboard.route';
+import reportRoute from './routes/reports.route';
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use('/api/service-type', serviceTypeRouter);
 app.use('/api/service-receipt', ServiceReceipt);
 app.use('/api/chatbot', chatRouter);
 app.use('/api/request-attachment', requestAttachment);
+app.use('/api/reports', reportRoute);
 
 //Servidor
 app.listen(process.env.PORT, () => {
