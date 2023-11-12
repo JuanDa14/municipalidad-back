@@ -61,14 +61,14 @@ export async function seedData(req: Request, res: Response) {
 		]);
 
 		const services = await Service.insertMany([
-			{ name: 'Agua y Desague', state: true, type: serviceTypes[0]._id },
-			{ name: 'Baja Policia', state: true, type: serviceTypes[1]._id },
-			{ name: 'SISA', state: true, type: serviceTypes[3]._id },
-			{ name: 'Deportivo', state: true, type: serviceTypes[4]._id },
-			{ name: 'Matrimonios', state: true, type: serviceTypes[2]._id },
-			{ name: 'Nacimientos', state: true, type: serviceTypes[2]._id },
-			{ name: 'Defunciones', state: true, type: serviceTypes[2]._id },
-			{ name: 'Inscripciones', state: true, type: serviceTypes[2]._id },
+			{ name: 'Agua y Desague', state: true, type: serviceTypes[0]._id,price:20 },
+			{ name: 'Baja Policia', state: true, type: serviceTypes[1]._id,price:20 },
+			{ name: 'SISA', state: true, type: serviceTypes[3]._id,price:20 },
+			{ name: 'Deportivo', state: true, type: serviceTypes[4]._id,price:20 },
+			{ name: 'Matrimonios', state: true, type: serviceTypes[2]._id,price:20 },
+			{ name: 'Nacimientos', state: true, type: serviceTypes[2]._id,price:20 },
+			{ name: 'Defunciones', state: true, type: serviceTypes[2]._id,price:20 },
+			{ name: 'Inscripciones', state: true, type: serviceTypes[2]._id,price:20 },
 		]);
 		const clients = await Client.insertMany([
 			{
@@ -94,6 +94,6 @@ export async function seedData(req: Request, res: Response) {
 
 		return res.status(200).json({ message: 'Seed ejecutado correctamente' });
 	} catch (error) {
-		return res.status(500).json({ message: 'Error al ejecutar el seed' });
+		return res.status(500).json({ message: 'Error al ejecutar el seed en: ',error });
 	}
 }
