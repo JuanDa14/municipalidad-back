@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServiceReceipt = exports.Provider = exports.User = exports.Role = exports.Client = exports.Auth = void 0;
+exports.Report = exports.ServiceReceipt = exports.Provider = exports.User = exports.Role = exports.Client = exports.Auth = void 0;
 var auth_route_1 = require("./auth.route");
 Object.defineProperty(exports, "Auth", { enumerable: true, get: function () { return __importDefault(auth_route_1).default; } });
 var client_route_1 = require("./client.route");
@@ -16,3 +16,5 @@ var provider_route_1 = require("./provider.route");
 Object.defineProperty(exports, "Provider", { enumerable: true, get: function () { return __importDefault(provider_route_1).default; } });
 var service_receipt_route_1 = require("./service-receipt.route");
 Object.defineProperty(exports, "ServiceReceipt", { enumerable: true, get: function () { return __importDefault(service_receipt_route_1).default; } });
+var reports_route_1 = require("./reports.route");
+Object.defineProperty(exports, "Report", { enumerable: true, get: function () { return __importDefault(reports_route_1).default; } });

@@ -26,3 +26,4 @@ __exportStar(require("./service-receipt.controller"), exports);
 __exportStar(require("./service-type.controller"), exports);
 __exportStar(require("./service.controller"), exports);
 __exportStar(require("./user.controller"), exports);
+__exportStar(require("./report.controller"), exports);
