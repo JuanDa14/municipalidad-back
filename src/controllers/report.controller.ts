@@ -1,77 +1,84 @@
 import { RequestAttachment, Service, ServiceReceipt, User } from '../models';
 import { Request, Response } from 'express';
-export const getyears =async (req:Request,res:Response) => {
+
+export const getyears = async (req: Request, res: Response) => {
 	try {
-			const receiptsYears = await ServiceReceipt.aggregate([
+		const receiptsYears = await ServiceReceipt.aggregate([
 			{
-				$project:{
-					year: { $year: "$createdAt" }
-				}
+				$project: {
+					year: { $year: '$createdAt' },
+				},
 			},
 			{
-				$group:{
-					_id: '$year'
-				}
-			}
+				$group: {
+					_id: '$year',
+				},
+			},
 		]);
 		const requestYears = await RequestAttachment.aggregate([
 			{
-				$project:{
-					year: { $year: "$createdAt" }
-				}
+				$project: {
+					year: { $year: '$createdAt' },
+				},
 			},
 			{
-				$group:{
-					_id: '$year'
-				}
-			}
+				$group: {
+					_id: '$year',
+				},
+			},
 		]);
-		const allYearsSet = new Set([...receiptsYears.map(item => item._id), ...requestYears.map(item => item._id)]);
+		const allYearsSet = new Set([
+			...receiptsYears.map((item) => item._id),
+			...requestYears.map((item) => item._id),
+		]);
 		const allYearsArray = Array.from(allYearsSet);
 
-					const receiptsMonth = await ServiceReceipt.aggregate([
+		const receiptsMonth = await ServiceReceipt.aggregate([
 			{
-				$project:{
-					year: { $month: "$createdAt" }
-				}
+				$project: {
+					year: { $month: '$createdAt' },
+				},
 			},
 			{
-				$group:{
-					_id: '$year'
-				}
-			}
+				$group: {
+					_id: '$year',
+				},
+			},
 		]);
 		const requestMonth = await RequestAttachment.aggregate([
 			{
-				$project:{
-					year: { $month: "$createdAt" }
-				}
+				$project: {
+					year: { $month: '$createdAt' },
+				},
 			},
 			{
-				$group:{
-					_id: '$year'
-				}
-			}
+				$group: {
+					_id: '$year',
+				},
+			},
 		]);
-		const allMonthSet = new Set([...receiptsMonth.map(item => item._id), ...requestMonth.map(item => item._id)]);
+		const allMonthSet = new Set([
+			...receiptsMonth.map((item) => item._id),
+			...requestMonth.map((item) => item._id),
+		]);
 		const allMonthArray = Array.from(allMonthSet);
 
 		return res.json({
-			status:200,
-			years:allYearsArray || [],
-			months: allMonthArray || []
-		})
+			status: 200,
+			years: allYearsArray || [],
+			months: allMonthArray || [],
+		});
 	} catch (error) {
 		return res.json({
-			status:401,
-			years:[],
-			months:[]
-		})
+			status: 401,
+			years: [],
+			months: [],
+		});
 	}
-}
+};
 
-export const getMonthsByYear =async (req:Request,res:Response) => {
-	const {year} = req.body
+export const getMonthsByYear = async (req: Request, res: Response) => {
+	const { year } = req.body;
 	try {
 		const receiptsByYear = await ServiceReceipt.aggregate([
 			{
@@ -103,36 +110,35 @@ export const getMonthsByYear =async (req:Request,res:Response) => {
 				},
 			},
 		]);
-		return res.json(
-			{
-				status:200,
-				charts:{
-					ServiceReceiptChart: receiptsByYear || [],
-					RequestChart: requestByYear || []
-				}
-			}
-		)
+		return res.json({
+			status: 200,
+			charts: {
+				ServiceReceiptChart: receiptsByYear || [],
+				RequestChart: requestByYear || [],
+			},
+		});
 	} catch (error) {
 		return res.json({
-			status:401,
-			charts:{
-					ServiceReceiptChart: []
-				}
-		})
+			status: 401,
+			charts: {
+				ServiceReceiptChart: [],
+			},
+		});
 	}
-}
+};
 
-export const getChartReports = async (req:Request,res:Response) => {
-	const {year,month} =req.body
+export const getChartReports = async (req: Request, res: Response) => {
+	const { year, month } = req.body;
 	try {
 		const getServiceReport = await ServiceReceipt.find({
 			$expr: {
-    			$and: [
-      				{ $eq: [{ $year: '$createdAt' }, year] },
-      				{ $eq: [{ $month: '$createdAt' }, month] }
-    			]
-  			}
-		}).populate('client', 'name dni_ruc')
+				$and: [
+					{ $eq: [{ $year: '$createdAt' }, year] },
+					{ $eq: [{ $month: '$createdAt' }, month] },
+				],
+			},
+		})
+			.populate('client', 'name dni_ruc')
 			.populate({
 				path: 'service',
 				select: 'name dni_ruc',
@@ -140,29 +146,30 @@ export const getChartReports = async (req:Request,res:Response) => {
 					path: 'type',
 					select: 'description',
 				},
-			}).lean()
+			})
+			.lean();
 		const getRequestReport = await RequestAttachment.find({
 			$expr: {
-    			$and: [
-      				{ $eq: [{ $year: '$createdAt' }, year] },
-      				{ $eq: [{ $month: '$createdAt' }, month] }
-    			]
-  			}
-		}).lean()
+				$and: [
+					{ $eq: [{ $year: '$createdAt' }, year] },
+					{ $eq: [{ $month: '$createdAt' }, month] },
+				],
+			},
+		}).lean();
 
 		return res.json({
-			status:200,
-			data:{
+			status: 200,
+			data: {
 				serviceReport: getServiceReport || [],
-				requestReport: getRequestReport || []
-			}
-		})
+				requestReport: getRequestReport || [],
+			},
+		});
 	} catch (error) {
 		return res.json({
-			status:401,
-			data:{
-				error
-			}
-		})
+			status: 401,
+			data: {
+				error,
+			},
+		});
 	}
-}
+};
