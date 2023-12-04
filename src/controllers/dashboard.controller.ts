@@ -96,7 +96,7 @@ export const getDashboard = async (req: Request, res: Response) => {
 				totalPaymentsReceipt.length > 0
 					? totalPaymentsReceipt[0]
 					: { _id: currentMonth, total: 0 },
-			lastRequests: lastRequests || [],
+			lastRequests: lastRequests.length > 0 ? lastRequests : [],
 			charts: {
 				receiptsPaymentByMonth: receiptsPaymentByMonth.length > 0 ? receiptsPaymentByMonth : [],
 			},

@@ -122,8 +122,8 @@ const getMonthsByYear = (req, res) => __awaiter(void 0, void 0, void 0, function
         return res.json({
             status: 200,
             charts: {
-                ServiceReceiptChart: receiptsByYear || [],
-                RequestChart: requestByYear || [],
+                ServiceReceiptChart: receiptsByYear.length > 0 ? receiptsByYear : [],
+                RequestChart: requestByYear.length > 0 ? requestByYear : [],
             },
         });
     }

@@ -113,8 +113,8 @@ export const getMonthsByYear = async (req: Request, res: Response) => {
 		return res.json({
 			status: 200,
 			charts: {
-				ServiceReceiptChart: receiptsByYear || [],
-				RequestChart: requestByYear || [],
+				ServiceReceiptChart: receiptsByYear.length > 0 ? receiptsByYear : [],
+				RequestChart: requestByYear.length > 0 ? requestByYear : [],
 			},
 		});
 	} catch (error) {
