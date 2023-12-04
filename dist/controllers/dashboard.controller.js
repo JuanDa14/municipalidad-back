@@ -91,13 +91,15 @@ const getDashboard = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             },
         ]).sort({ _id: 1 });
         return res.json({
-            users: usersByCurrentMonth[0].total || 0,
-            receipts: receiptByCurrentMonth[0].total || 0,
-            requests: requestsByCurrentMonth[0].total || 0,
-            totalReceiptByCurrentMonth: totalPaymentsReceipt[0] || { _id: currentMonth, total: 0 },
-            lastRequests,
+            users: usersByCurrentMonth.length > 0 ? usersByCurrentMonth[0].total : 0,
+            receipts: receiptByCurrentMonth.length > 0 ? receiptByCurrentMonth[0].total : 0,
+            requests: requestsByCurrentMonth.length > 0 ? requestsByCurrentMonth[0].total : 0,
+            totalReceiptByCurrentMonth: totalPaymentsReceipt.length > 0
+                ? totalPaymentsReceipt[0]
+                : { _id: currentMonth, total: 0 },
+            lastRequests: lastRequests || [],
             charts: {
-                receiptsPaymentByMonth: receiptsPaymentByMonth || [],
+                receiptsPaymentByMonth: receiptsPaymentByMonth.length > 0 ? receiptsPaymentByMonth : [],
             },
         });
     }
